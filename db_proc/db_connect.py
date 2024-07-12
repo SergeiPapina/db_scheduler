@@ -3,7 +3,7 @@ from sqlalchemy_utils import database_exists, create_database
 from db_orm import create_tables, Author, Article
 
 user = 'postgres'
-password = 'kolonka'
+password = ''
 host = 'localhost'
 port = 5432
 database = 'oim_db_temp'
