@@ -44,9 +44,11 @@ sudo sqlcmd config view --raw
 sudo docker exec -t sql_oim cat /var/opt/mssql/log/errorlog | grep connection  
 sudo sqlcmd config connection-strings
 export 'SQLCMDPASSWORD=9IkX1u#O%A$0z9P1f$Q3PGG0@LM2$WuDjY@SLSM54Z**G$w826'  
-sqlcmd -S 127.0.0.1,1433 -U root -d master  (or db_name) 
+sqlcmd -S 127.0.0.1,1433 -U root -d master  (or db_name)   
 
-
+chmod 666 file
+sudo docker cp ComponentDB.mdf sqltest:/var/opt/mssql/data/ComponentDB.mdf  
+sudo docker cp ComponentDB_log.ldf sqltest:/var/opt/mssql/data/ComponentDB_log.ldf  
 
 ## sudo sqlcmd config connection-strings
 install ODBC driver with ./odbc_install.sh
@@ -59,3 +61,11 @@ sudo docker start ID|nameContainer       for example sql1
 sudo docker exec -it sql1 "bash"  
 sudo docker exec -t sql1 cat /var/opt/mssql/log/errorlog | grep connection  
 
+SELECT * FROM INFORMATION_SCHEMA.TABLES  
+GO  
+SELECT * FROM authors;  
+GO  
+
+
+CREATE DATABASE ComponentDB ON (FILENAME='/var/opt/mssql/input_data/ComponentDB.mdf')  
+LOG ON (FILENAME='/var/opt/mssql/input_data/ComponentDB_log.ldf') FOR ATTACH;
