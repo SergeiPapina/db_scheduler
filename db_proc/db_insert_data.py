@@ -64,13 +64,14 @@ def session_commit(session, article):
 def session_flush(session, article_list):
     for _ in article_list:
         session.add(_)
-
+    session.commit()
     session.flush()
 
 
 def session_add_all(session, article_list):
     session.add_all(article_list)
-    # session.flush()
+    session.commit()
+    session.flush()
 
 
 def update_value(session):

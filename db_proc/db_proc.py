@@ -1,4 +1,4 @@
-from db_connect import get_connection
+from db_connect import get_connection_postgres, get_connection_mssql
 from sqlalchemy.orm import sessionmaker
 from db_insert_data import *
 from db_get_data import get_all
@@ -7,7 +7,8 @@ from db_orm import Article, Author
 
 if __name__ == '__main__':
     print("hi")
-    engine = get_connection()
+    # engine = get_connection_postgres()
+    engine = get_connection_mssql()
 
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -16,9 +17,9 @@ if __name__ == '__main__':
     # article_list = [article2, article3]
     # session_flush(session, article_list)
     # article_list.clear()
-    # article_list.extend([article1, article2, article3])
+    # article_list.extend([article1, article4])
     # session_add_all(session, article_list)
-
+    #
     # update_value(session)
 
     articles = get_all(session, Article)
