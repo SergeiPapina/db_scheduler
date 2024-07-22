@@ -26,7 +26,7 @@ class Author(Base):
     email = Column(String(255), nullable=False)
     joined = Column(DateTime(), default=datetime.now)
 
-    articles = relationship('Article', backref='author')
+    author_articles = relationship('Article', backref='author')
 
 
 def create_tables(engine):

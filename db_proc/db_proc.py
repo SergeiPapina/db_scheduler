@@ -13,7 +13,7 @@ if __name__ == '__main__':
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    session_commit(session, article5)
+    # session_commit(session, article5)
     # article_list = [article2, article3]
     # session_flush(session, article_list)
     # article_list.clear()
@@ -28,6 +28,6 @@ if __name__ == '__main__':
 
     authors = get_all(session, Author)
     for _ in authors:
-        print(_.id, _.firstname, _.lastname, _.email, len(_.articles))
+        print(_.id, _.firstname, _.lastname, _.email, len(_.author_articles))
 
 
