@@ -1,7 +1,6 @@
-from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey
+from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import declarative_base, relationship
-from datetime import datetime
-from sqlalchemy import VARCHAR, NVARCHAR, BIGINT, FLOAT, DOUBLE
+from sqlalchemy import NVARCHAR, BIGINT, FLOAT, DOUBLE
 
 
 Base = declarative_base()
@@ -11,14 +10,13 @@ class Manufacturers(Base):
     __tablename__ = 'Manufacturers'
 
     ID = Column(Integer(), primary_key=True)
-    # maybe length 900
     ManufacturerName = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
 
     Capacitors = relationship('Capacitors', backref='Manufacturers')
     Resistors = relationship('Resistors', backref='Manufacturers')
     Diods = relationship('Diods', backref='Manufacturers')
-    # Microchips = relationship('Microchips', backref='Manufacturers')
-    # Transistors = relationship('Transistors', backref='Manufacturers')
+    Microchips = relationship('Microchips', backref='Manufacturers')
+    Transistors = relationship('Transistors', backref='Manufacturers')
 
 
 class ComponentKinds(Base):
@@ -45,6 +43,7 @@ class Technologies(Base):
     ID = Column(Integer(), primary_key=True)
     RuTechnologyName = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
     EnTechnologyName = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+    # relationship()
 
 
 class Diods(Base):
@@ -98,14 +97,58 @@ class Resistors(Base):
     Remark2 = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
 
 
-# class Transistors(Base):
-#     __tablename__ = 'Transistors'
-#
-#
-# class Microchips(Base):
-#     __tablename__ = 'Microchips'
-#
-#
+class Transistors(Base):
+    __tablename__ = 'Transistors'
+
+    ID = Column(Integer(), primary_key=True)
+    DocID = Column(BIGINT(), nullable=True)
+    ComponentName = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=False, unique=False)
+
+    Type_ID = Column(Integer(), ForeignKey('ComponentTypes.ID'), nullable=True)
+    Kind_ID = Column(Integer(), ForeignKey('ComponentKinds.ID'), nullable=True)
+    ManufacturerName_ID = Column(Integer(), ForeignKey('Manufacturers.ID'), nullable=True)
+
+    MaxPermissibleDCVoltage = Column(FLOAT(), nullable=True)
+    MinOperatingTemperature = Column(FLOAT(), nullable=True)
+    MaxOperatingTemperature = Column(FLOAT(), nullable=True)
+    MaxPermissibleDCCollectorCurrent = Column(FLOAT(), nullable=True)
+    RadiationResistance = Column(FLOAT(), nullable=True)
+    RadiationResistanceI = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+    QualicationSG = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+    QualicationЕС = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+    Package = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+    Remark1 = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+    Remark2 = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+
+
+class Microchips(Base):
+    __tablename__ = 'Microchips'
+
+    ID = Column(Integer(), primary_key=True)
+    DocID = Column(BIGINT(), nullable=True)
+    ComponentName = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=False, unique=False)
+
+    Type_ID = Column(Integer(), ForeignKey('ComponentTypes.ID'), nullable=False)
+    Kind_ID = Column(Integer(), ForeignKey('ComponentKinds.ID'), nullable=False)
+    ManufacturerName_ID = Column(Integer(), ForeignKey('Manufacturers.ID'), nullable=False)
+
+    Interfaces = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+    MinVoltage = Column(FLOAT(), nullable=False)
+    MaxVoltage = Column(FLOAT(), nullable=False)
+    Frequency = Column(FLOAT(), nullable=True)
+    BitDepthValue = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+    ConsumptionCurrent = Column(FLOAT(), nullable=True)
+    TechnologyName_ID = Column(FLOAT(), ForeignKey('Technologies.ID'), nullable=False)
+    MinOperatingTemperature = Column(FLOAT(), nullable=False)
+    MaxOperatingTemperature = Column(FLOAT(), nullable=False)
+    RadiationResistance = Column(FLOAT(), nullable=True)
+    RadiationResistanceI = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+    MemoryFormat = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+    SamplingTime = Column(FLOAT(), nullable=True)
+    Package = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+    Qualication = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+    Remark1 = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+
 class Capacitors(Base):
     __tablename__ = 'Capacitors'
 
