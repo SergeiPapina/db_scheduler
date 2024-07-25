@@ -1,6 +1,3 @@
-from db_orm import Article, Author
-
-
 def get_all(session, table):
     res = session.query(table).all()
     return res

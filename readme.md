@@ -65,6 +65,7 @@ CREATE DATABASE ComponentDB ON (FILENAME='/var/opt/mssql/input_data/ComponentDB.
 LOG ON (FILENAME='/var/opt/mssql/input_data/ComponentDB_log.ldf') FOR ATTACH;
 
 ## some SQL queries
+USE 'dbname'
 SELECT * FROM INFORMATION_SCHEMA.TABLES  
 GO  
 SELECT * FROM authors;    
@@ -97,3 +98,4 @@ WHERE sc.id = OBJECT_ID('Manufacturers')
 ORDER BY sc.colid;
 
 exec sp_help 'Manufacturers';
+EXEC sp_fkeys 'TableName'

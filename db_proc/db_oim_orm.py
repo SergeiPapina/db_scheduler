@@ -17,6 +17,13 @@ class Manufacturers(Base):
     Diods = relationship('Diods', backref='Manufacturers')
     Microchips = relationship('Microchips', backref='Manufacturers')
     Transistors = relationship('Transistors', backref='Manufacturers')
+    column_num = 2
+    column_names = ('ID', 'ManufacturerName')
+
+    def get_items_tuple(self):
+        res = []
+        res.extend([self.ID, self.ManufacturerName])
+        return tuple(res)
 
 
 class ComponentKinds(Base):
@@ -26,6 +33,13 @@ class ComponentKinds(Base):
     RuComponentKind = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
     EnComponentKind = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
     Capacitors = relationship('Capacitors', backref='ComponentKinds')
+    column_num = 3
+    column_names = ('ID', 'RuComponentKind', 'EnComponentKind')
+
+    def get_items_tuple(self):
+        res = []
+        res.extend([self.ID, self.RuComponentKind, self.EnComponentKind])
+        return tuple(res)
 
 
 class ComponentTypes(Base):
@@ -35,6 +49,13 @@ class ComponentTypes(Base):
     RuComponentType = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
     EnComponentType = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
     Capacitors = relationship('Capacitors', backref='ComponentTypes')
+    column_num = 3
+    column_names = ('ID', 'RuComponentType', 'EnComponentType')
+
+    def get_items_tuple(self):
+        res = []
+        res.extend([self.ID, self.RuComponentType, self.EnComponentType])
+        return tuple(res)
 
 
 class Technologies(Base):
@@ -43,7 +64,14 @@ class Technologies(Base):
     ID = Column(Integer(), primary_key=True)
     RuTechnologyName = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
     EnTechnologyName = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+    column_num = 3
+    column_names = ('ID', 'RuTechnologyName', 'EnTechnologyName')
     # relationship()
+
+    def get_items_tuple(self):
+        res = []
+        res.extend([self.ID, self.RuTechnologyName, self.EnTechnologyName])
+        return tuple(res)
 
 
 class Diods(Base):
@@ -69,6 +97,22 @@ class Diods(Base):
     Package = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
     Remark1 = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
     Remark2 = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+    column_num = 18
+    column_names = ('ID', 'DocID', 'ComponentName', 'Type_ID', 'Kind_ID', 'ManufacturerName_ID',
+                    'MaxPermissibleDCVoltage', 'MinOperatingTemperature', 'MaxOperatingTemperature',
+                    'MaxPermissibleAverageDirectCurrent', 'MaxiPermissibleDirectCurrent',
+                    'RadiationResistance', 'RadiationResistanceI', 'QualicationSG', 'QualicationЕС',
+                    'Package', 'Remark1', 'Remark2')
+
+    def get_items_tuple(self):
+        res = []
+        res.extend([self.ID, self.DocID, self.ComponentName, self.Type_ID, self. Kind_ID, self.ManufacturerName_ID,
+                    self.MaxPermissibleDCVoltage,
+                    self.MinOperatingTemperature, self.MaxOperatingTemperature,
+                    self.MaxPermissibleAverageDirectCurrent, self.MaxiPermissibleDirectCurrent,
+                    self.RadiationResistance, self.RadiationResistanceI,
+                    self.QualicationSG, self.QualicationЕС, self.Package, self.Remark1, self.Remark2])
+        return tuple(res)
 
 
 class Resistors(Base):
@@ -95,6 +139,22 @@ class Resistors(Base):
     QualicationЕС = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
     Remark1 = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
     Remark2 = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+    column_num = 20
+    column_names = ('ID', 'DocID', 'ComponentName', 'Type_ID', 'Kind_ID', 'ManufacturerName_ID',
+                    'PowerRating', 'MinVoltage', 'MaxVoltage',
+                    'MinRatedResistance', 'MaxRatedResistance',
+                    'ResistanceTolerance', 'MinOperatingTemperature', 'MaxOperatingTemperature', 'CurrentLimit',
+                    'Package', 'QualicationSG', 'QualicationЕС', 'Remark1', 'Remark2')
+
+    def get_items_tuple(self):
+        res = []
+        res.extend([self.ID, self.DocID, self.ComponentName, self.Type_ID, self. Kind_ID, self.ManufacturerName_ID,
+                    self.PowerRating, self.MinVoltage, self.MaxVoltage, self.MinRatedResistance,
+                    self.MaxRatedResistance, self.ResistanceTolerance,
+                    self.MinOperatingTemperature, self.MaxOperatingTemperature,
+                    self.CurrentLimit,  self.Package,
+                    self.QualicationSG, self.QualicationЕС, self.Remark1, self.Remark2])
+        return tuple(res)
 
 
 class Transistors(Base):
@@ -119,6 +179,21 @@ class Transistors(Base):
     Package = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
     Remark1 = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
     Remark2 = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+    column_num = 17
+    column_names = ('ID', 'DocID', 'ComponentName', 'Type_ID', 'Kind_ID', 'ManufacturerName_ID',
+                    'MaxPermissibleDCVoltage', 'MinOperatingTemperature', 'MaxOperatingTemperature',
+                    'MaxPermissibleDCCollectorCurrent', 'RadiationResistance', 'RadiationResistanceI',
+                    'QualicationSG', 'QualicationЕС', 'Package', 'Remark1', 'Remark2')
+
+    def get_items_tuple(self):
+        res = []
+        res.extend([self.ID, self.DocID, self.ComponentName, self.Type_ID, self. Kind_ID, self.ManufacturerName_ID,
+                    self.MaxPermissibleDCVoltage,
+                    self.MinOperatingTemperature, self.MaxOperatingTemperature,
+                    self.MaxPermissibleDCCollectorCurrent,
+                    self.RadiationResistance, self.RadiationResistanceI,
+                    self.QualicationSG, self.QualicationЕС, self.Package, self.Remark1, self.Remark2])
+        return tuple(res)
 
 
 class Microchips(Base):
@@ -148,6 +223,24 @@ class Microchips(Base):
     Package = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
     Qualication = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
     Remark1 = Column(NVARCHAR(450, collation='Cyrillic_General_CI_AS'), nullable=True, unique=False)
+    column_num = 22
+    column_names = ('ID', 'DocID', 'ComponentName', 'Type_ID', 'Kind_ID', 'ManufacturerName_ID',
+                    'Interfaces', 'MinVoltage', 'MaxVoltage', 'Frequency', 'BitDepthValue',
+                    'ConsumptionCurrent', 'TechnologyName_ID',
+                    'MinOperatingTemperature', 'MaxOperatingTemperature',
+                    'RadiationResistance', 'RadiationResistanceI',
+                    'MemoryFormat', 'SamplingTime',
+                    'Package', 'Qualication', 'Remark1')
+
+    def get_items_tuple(self):
+        res = []
+        res.extend([self.ID, self.DocID, self.ComponentName, self.Type_ID, self. Kind_ID, self.ManufacturerName_ID,
+                    self.Interfaces, self.MinVoltage, self.MaxVoltage, self.Frequency, self.BitDepthValue,
+                    self.ConsumptionCurrent, self.TechnologyName_ID, self.MinOperatingTemperature,
+                    self.MaxOperatingTemperature, self.RadiationResistance, self.RadiationResistanceI,
+                    self.MemoryFormat, self.SamplingTime, self.Package, self.Qualication, self.Remark1])
+        return tuple(res)
+
 
 class Capacitors(Base):
     __tablename__ = 'Capacitors'
@@ -169,11 +262,30 @@ class Capacitors(Base):
     MaxOperatingTemperature = Column(FLOAT(), nullable=True)
     AcceptableCapacityIncrease = Column(FLOAT(), nullable=True)
     AcceptableСapacityReduction = Column(FLOAT(), nullable=True)
-    # AcceptableCapacityReduction = Column(FLOAT(), nullable=True)
     QualicationSG = Column(NVARCHAR(collation='Cyrillic_General_CI_AS'), nullable=True)
     QualicationЕС = Column(NVARCHAR(collation='Cyrillic_General_CI_AS'), nullable=True)
     Remark1 = Column(NVARCHAR(collation='Cyrillic_General_CI_AS'), nullable=True)
     Remark2 = Column(NVARCHAR(collation='Cyrillic_General_CI_AS'), nullable=True)
+    column_num = 19
+    column_names = ('ID', 'DocID', 'ComponentName', 'Type_ID', 'Kind_ID', 'ManufacturerName_ID',
+                    'OutputType', 'MinVoltage', 'MaxVoltage',
+                    'MinCapacity', 'MaxCapacity', 'MinOperatingTemperature', 'MaxOperatingTemperature',
+                    'AcceptableCapacityIncrease', 'AcceptableСapacityReduction',
+                    'QualicationSG', 'QualicationЕС', 'Remark1', 'Remark2')
+
+    def get_items_tuple(self):
+        res = []
+        res.extend([self.ID, self.DocID, self.ComponentName, self.Type_ID, self. Kind_ID, self.ManufacturerName_ID,
+                    self.OutputType, self.MinVoltage, self.MaxVoltage, self.MinCapacity, self.MaxCapacity,
+                    self.MinOperatingTemperature, self.MaxOperatingTemperature,
+                    self.AcceptableCapacityIncrease, self.AcceptableСapacityReduction,
+                    self.QualicationSG, self.QualicationЕС, self.Remark1, self.Remark2])
+        return tuple(res)
+
+
+db_tables = (Microchips.__tablename__, Resistors.__tablename__, Diods.__tablename__, Capacitors.__tablename__,
+             Transistors.__tablename__, Manufacturers.__tablename__, Technologies.__tablename__,
+             ComponentKinds.__tablename__, ComponentTypes.__tablename__)
 
 
 def create_tables(engine):
