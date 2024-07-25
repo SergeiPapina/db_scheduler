@@ -35,7 +35,7 @@ run
 python3 db_proc.py
 
 
-
+# next description is for MSSQL
 
 ## better way to use docker image throw sqlcmd
 /////////////////////////////////////////////////////////////////////////////////////  
