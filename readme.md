@@ -29,6 +29,9 @@ then use
 \dt  
 \q  
 
+sudo docker ps -a
+sudo docker start sqltest
+
 ### now application ready to use
 set correct username and password in db_connect.py  
 run  
