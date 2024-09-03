@@ -32,6 +32,19 @@ then use
 sudo docker ps -a
 sudo docker start sqltest
 
+sudo docker save sqltest > ~/sqltest.tar
+sudo docker export sqltest > ~/sqltest.tar
+sudo docker import - mytest < ~/sqltest.tar
+sudo docker load < ~/sqltest.tar 
+2059  sudo docker image list
+2060  sudo docker run 33a703f3cc91
+
+sudo docker ps -a --no-trunc
+insert correct image ID
+sudo docker run -e "ACCEPT_EULA=Y" -p 1433:1433 --name sql1 --hostname sql1 33a703f3cc91 /opt/mssql/bin/permissions_check.sh /opt/mssql/bin/sqlservr
+
+
+
 ### now application ready to use
 set correct username and password in db_connect.py  
 run  
