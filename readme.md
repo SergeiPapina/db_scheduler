@@ -29,19 +29,29 @@ then use
 \dt  
 \q  
 
-sudo docker ps -a
-sudo docker start sqltest
+sudo docker ps -a  
+sudo docker start sqltest  
 
-sudo docker save sqltest > ~/sqltest.tar
-sudo docker export sqltest > ~/sqltest.tar
-sudo docker import - mytest < ~/sqltest.tar
-sudo docker load < ~/sqltest.tar 
-2059  sudo docker image list
-2060  sudo docker run 33a703f3cc91
+sudo docker save sqltest > ~/sqltest.tar  
+sudo docker export sqltest > ~/sqltest.tar  
+sudo docker import - mytest < ~/sqltest.tar  
+sudo docker load < ~/sqltest.tar   
+2059  sudo docker image list  
+2060  sudo docker run 33a703f3cc91  
 
-sudo docker ps -a --no-trunc
-insert correct image ID
-sudo docker run -e "ACCEPT_EULA=Y" -p 1433:1433 --name sql1 --hostname sql1 33a703f3cc91 /opt/mssql/bin/permissions_check.sh /opt/mssql/bin/sqlservr
+sudo docker ps -a --no-trunc  
+insert correct image ID  
+sudo docker run -e "ACCEPT_EULA=Y" -p 1433:1433 --name sql1 --hostname sql1 33a703f3cc91 /opt/mssql/bin/permissions_check.sh /opt/mssql/bin/sqlservr  
+
+### in windows
+install sqlcmd(go)
+install ssms
+
+pull or import image
+
+docker run --name sql_2022 -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=1Secure*Password1" -e "MSSQL_PID=Enterprise" -p 1436:1433 -d mcr.microsoft.com/mssql/server:2022-latest  
+docker exec -it sql_2019 /opt/mssql-tools/bin/sqlcmd -S localhost -U sa  
+
 
 
 
@@ -53,10 +63,14 @@ python3 db_proc.py
 
 # next description is for MSSQL
 
+sqlcmd create mssql --tag 2022-latest --hostname localhost --name sql_oim --port 1433 --accept-eula
+
+
 ## better way to use docker image throw sqlcmd
 /////////////////////////////////////////////////////////////////////////////////////  
-sudo sqlcmd create mssql --tag 2022-latest --hostname sql_oim --name sql_oim --port 1433 --accept-eula  
-sudo sqlcmd config view --raw  
+sudo sqlcmd create mssql --tag 2022-latest --hostname sql_oim --name sql_oim --port 1433 --accept-eula   
+     sqlcmd create mssql --tag 2019-latest --hostname localhost --name mssql005 --port 1433 --accept-eula  
+sudo sqlcmd config view --raw   
 sudo docker exec -t sql_oim cat /var/opt/mssql/log/errorlog | grep connection  
 sudo sqlcmd config connection-strings
 export 'SQLCMDPASSWORD=9IkX1u#O%A$0z9P1f$Q3PGG0@LM2$WuDjY@SLSM54Z**G$w826'  
