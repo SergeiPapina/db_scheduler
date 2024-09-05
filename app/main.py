@@ -1,6 +1,6 @@
 import sys
 
-from db_window import MainWindow
+from app.db_window import MainWindow
 from PyQt6.QtWidgets import QApplication
 
 
